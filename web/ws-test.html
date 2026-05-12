@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WebSocket Test</title>
+</head>
+<body>
+    <h1>WebSocket Test</h1>
+    <div id="status">Подключение...</div>
+    <script>
+        const ws = new WebSocket('wss://chess-event.kpk45.ru/ws');
+        ws.onopen = function() {
+            document.getElementById('status').innerHTML = '✅ WebSocket РАБОТАЕТ! Соединение установлено.';
+            ws.send('ping');
+        };
+        ws.onmessage = function(e) {
+            document.getElementById('status').innerHTML += '<br>Получено: ' + e.data;
+        };
+        ws.onerror = function() {
+            document.getElementById('status').innerHTML = '❌ Ошибка подключения';
+        };
+        ws.onclose = function() {
+            document.getElementById('status').innerHTML += '<br>❌ Соединение закрыто';
+        };
+    </script>
+</body>
+</html>

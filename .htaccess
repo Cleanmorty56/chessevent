@@ -1,0 +1,8 @@
+RewriteEngine On
+
+# WebSocket прокси (ДОЛЖНО БЫТЬ САМЫМ ПЕРВЫМ!)
+RewriteCond %{HTTP:Upgrade} =websocket [NC]
+RewriteRule ^/ws$ ws://127.0.0.1:8085 [P,L]
+
+# Перенаправление всех запросов в папку web
+RewriteRule ^(.*)$ web/$1 [L]
